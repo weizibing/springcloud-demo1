@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.customerprovider.dao.StudentDao">
+    <resultMap id="studentMap" type="student">
+        <result property="studentId" column="id"></result>
+        <result property="studentName" column="name"></result>
+        <result property="studentEmail" column="email"></result>
+        <result property="age" column="age"></result>
+    </resultMap>
+
+    <select id="getStudentList" resultMap="studentMap">
+        select * from student
+    </select>
+
+    <select id="getStudentById" resultMap="studentMap">
+        select * from student where id = #{id}
+    </select>
+
+    <insert id="addStudent">
+        insert into student(name,email,age)
+        values (#{studentName},#{studentEmail},#{age})
+    </insert>
+
+    <update id="updateStudent">
+        update student
+        <set>
+            <if test="studentName != null and studentName != ''">
+                name = #{studentName},
+            </if>
+            <if test="studentEmail != null and studentEmail != ''">
+                email = #{studentEmail},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age}
+            </if>
+        </set>
+        where id = #{studentId}
+    </update>
+
+    <delete id="deleteBatch">
+        delete from student where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteById">
+        delete from student where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,19 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: goods-provider
+  # 配置数据库连接
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&ServerTimezone=Asia/Shanghai
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wei.goodscommon.entity
+# 指定当前服务的 服务注册发现中心 的地址
+eureka:
+  client:
+    service-url:
+      defaultzone: http://localhost:8761/eureka

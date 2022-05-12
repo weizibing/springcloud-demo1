@@ -1,0 +1,19 @@
+server:
+  port: 8102
+spring:
+  application:
+    name: customer-ui
+eureka:
+  client:
+    service-url:
+      defaultzone: http://localhost:8761/euraka
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+feign:
+  hystrix:
+    enabled: true
